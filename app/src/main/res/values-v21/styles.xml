@@ -7,7 +7,7 @@
 
     <style name="AppTheme" parent="AppTheme.Base"/>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- android theme colors -->
         <item name="colorPrimary">@color/theme_dialer_primary</item>
         <item name="colorPrimaryDark">@color/theme_dialer_high</item>
