@@ -41,6 +41,23 @@ public class MainActivity extends AppCompatActivity {
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
+                if (position == 1){
+//                    List<Fragment> fragments= getSupportFragmentManager().getFragments();
+                    ProcessedImagesFragment p = (ProcessedImagesFragment) getSupportFragmentManager().getFragments().get(position);
+                    if (p != null ){
+//                        p.reLoad();
+
+                    }
+ /*
+                    if(fragments != null){
+                        for(Fragment fragment : fragments){
+                            if(fragment != null && fragment.isVisible())
+                        }
+                    }
+*/
+                }
+
+
                 Toast.makeText(MainActivity.this,
                         "Selected page position: " + position, Toast.LENGTH_SHORT).show();
             }
@@ -92,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         List<Fragment> fList = new ArrayList<Fragment>();
 
         fList.add(MainActivityFragment.newInstance("Fragment 1"));
-        fList.add(MainActivityFragment.newInstance("Fragment 2"));
+        fList.add(ProcessedImagesFragment.newInstance("Fragment 2"));
         fList.add(MainActivityFragment.newInstance("Fragment 3"));
 
         return fList;
