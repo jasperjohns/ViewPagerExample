@@ -2,6 +2,7 @@ package viewpagerexample.viewpagerexample;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -32,6 +34,10 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -211,9 +217,7 @@ public class MainActivityFragment extends BaseFragment {
             for(int i=0;i<mList.size();i++) {
                 if(mSparseBooleanArray.get(i)) {
                     Bitmap tgtImg = BitmapFactory.decodeFile(mList.get(i));
-                    Bitmap out = drawTextToBitmap(tgtImg, getActivity(),
-                            11,
-                            "asdasdasdasdasdasdasda scdasdasdasdasdasdasdasdasd");
+                    Bitmap out = drawTextToBitmap(tgtImg, getActivity(), 11, "asdasdasdasdasdasdasda scdasdasdasdasdasdasdasdasd");
 
 
                     //Saves the image to the gallery area
@@ -224,30 +228,7 @@ public class MainActivityFragment extends BaseFragment {
                     values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
                     Uri uri = getActivity().getContentResolver().insert(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
-
-//                    getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-
-//                    MediaStore.Images.Media.insertImage(getContentResolver(), bm,
-//                            barcodeNumber + ".jpg Card Image", barcodeNumber + ".jpg Card Image");
-
-
-
                     saveImage(out);
-/*
-                        // Saves but lacked some control over the file attributes
-                        OutputStream outstream;
-                        try {
-                            outstream = getContentResolver().openOutputStream(uri);
-                            out.compress(Bitmap.CompressFormat.JPEG, 70, outstream);
-                            outstream.close();
-                        } catch (FileNotFoundException e) {
-                            //
-                        } catch (IOException e) {
-                            //
-                        }
-*/
-
-
                     mTempArry.add(mList.get(i));
                 }
 
@@ -482,8 +463,17 @@ public class MainActivityFragment extends BaseFragment {
             mCustomImage = getActivity().getApplication().getDrawable(R.drawable.cmplogo);
             mCustomImage.setBounds(mCustomImage.getBounds());
 //        mCustomImage.draw(canvas);
+
+            SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String my_edittext_preference = mySharedPreferences.getString(getString(R.string.pref_watermarkImage_key), getString(R.string.pref_watermarkImage_default));
+            Bitmap myBitmap = BitmapFactory.decodeFile(my_edittext_preference);
+
+            Drawable d = (Drawable) new BitmapDrawable( myBitmap);
+
+
             Bitmap b=BitmapFactory.decodeResource(getResources(), R.drawable.cmplogo);
-            canvas.drawBitmap(b,0,0,p);
+//            canvas.drawBitmap(b,0,0,p);
+            canvas.drawBitmap( myBitmap,0,0,p);
 
             return bitmap;
         }

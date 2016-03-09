@@ -32,6 +32,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="asdasdasd asdasdasd asdasdasd asdasdasd asd"
                 android:layout_centerVertical="true"
+                android:visibility="invisible"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Button
@@ -41,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:onClick="btnChoosePhotosClick"
+                android:visibility="invisible"
                 android:text="Select Photos" />
 
 

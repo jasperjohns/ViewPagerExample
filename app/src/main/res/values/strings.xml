@@ -6,5 +6,13 @@
         in no small part due to the introduction of material design,
         a new design language that refreshed the entire Android experience
     </string>
+    <string name="title_settings_activity">Settings Activity</string>
+
+
+    <string name="pref_watermarkImage_ID">prefWatermarkImage</string>
+    <string name="pref_watermarkImage_label">WatermarkImage</string>
+    <string name="pref_watermarkImage_key" >WatermarkImage</string>
+    <string name="pref_watermarkImage_default">94043</string>
+
 
 </resources>

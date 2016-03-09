@@ -1,14 +1,19 @@
 package viewpagerexample.viewpagerexample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -22,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Show the toolbar
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.screen_default_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        SharedPreferences mySharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String my_edittext_preference = mySharedPreferences.getString(getString(R.string.pref_watermarkImage_key), getString(R.string.pref_watermarkImage_default));
+
 
         // Get a list of fragments into a List
         List<Fragment> fragments = getFragments();
@@ -82,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent SettingsAct = new Intent( this, SettingsActivity.class) ;
+            startActivity(SettingsAct);
+
             return true;
         }
 
@@ -110,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
         fList.add(MainActivityFragment.newInstance("Fragment 1"));
         fList.add(ProcessedImagesFragment.newInstance("Fragment 2"));
-        fList.add(MainActivityFragment.newInstance("Fragment 3"));
+        fList.add(TBD.newInstance("Fragment 3"));
 
         return fList;
     }
@@ -127,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
 
         public CharSequence getPageTitle(int position) {
             CharSequence tabString="";
-            if (position ==0 ) tabString = "Tab 1";
-            if (position ==1 ) tabString =  "Tab 2";
-            if (position ==2 ) tabString =  "Tab 3";
+            if (position ==0 ) tabString = "Select";
+            if (position ==1 ) tabString =  "Processed";
+            if (position ==2 ) tabString =  "";
             return tabString;
         }
 
