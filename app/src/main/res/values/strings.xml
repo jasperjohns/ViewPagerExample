@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">ViewPagerExample</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">WaterMarker</string>
     <string name="action_settings">Settings</string>
    <string name="long_text">Android 5.0 Lollipop was one of the most significant Android releases ever,
         in no small part due to the introduction of material design,
@@ -13,6 +12,14 @@
     <string name="pref_watermarkImage_label">WatermarkImage</string>
     <string name="pref_watermarkImage_key" >WatermarkImage</string>
     <string name="pref_watermarkImage_default">94043</string>
+
+    <string  name="Image">Image</string>
+    <string  name="ImageCheckbox">Checkbox</string>
+    <string  name="PopUpImage">Pop up image, touch to close</string>
+    <string  name="Tab_Strip">Tab Strip</string>
+    <string  name="Grid_Images">Grid of images</string>
+    <string  name="FAB_SelectImages">Click to process the images selected</string>
+    <string  name="FAB_SelectImages_Count">Count of Images</string>
 
 
 </resources>

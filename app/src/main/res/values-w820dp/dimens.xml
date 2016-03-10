@@ -99,7 +99,12 @@
     <dimen name="radius_twenty_two">@dimen/twenty_two</dimen>
     <dimen name="radius_twenty_four">@dimen/twenty_four</dimen>
     <dimen name="radius_twenty_six">@dimen/twenty_six</dimen>
-    <dimen name="radius_wenty_eight">@dimen/twenty_eight</dimen>
+    <dimen name="radius_twenty_eight">@dimen/twenty_eight</dimen>
+
+    <dimen name="dip_two">2dip</dimen>
+   <dimen name="dip_four">4dip</dimen>
+    <dimen name="dip_fourtyeight">48dip</dimen>
+    <dimen name="dip_hundred">100dip</dimen>
 
     <!-- Drawer Menu -->
     <dimen name="drawer_menu_width">240dp</dimen>

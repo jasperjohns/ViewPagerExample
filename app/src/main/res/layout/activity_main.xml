@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="WaterMarker"
+        android:text="@string/app_name"
         android:fontFamily="sans-serif-light"
         android:textAppearance="?android:textAppearanceLarge"
 
@@ -49,9 +49,10 @@
         <com.astuetz.PagerSlidingTabStrip
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="48dip"
+            android:layout_height="@dimen/dip_fourtyeight"
             android:background="@color/theme_dialer_primary"
             android:elevation="@dimen/elevation_ten"
+            android:contentDescription="@string/Tab_Strip"
             android:fillViewport="false"
             android:visibility="visible"
             app:pstsShouldExpand="true" />

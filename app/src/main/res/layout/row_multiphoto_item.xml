@@ -5,14 +5,16 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/hundred"
+        android:layout_height="@dimen/hundred"
+        android:contentDescription="@string/Image"
         android:src="@drawable/ic_launcher" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/ImageCheckbox"
         android:layout_alignRight="@+id/imageView1"
         android:layout_centerVertical="true"/>
 

@@ -28,10 +28,12 @@
     <dimen name="two">2dp</dimen>
     <dimen name="four">4dp</dimen>
     <dimen name="six">6dp</dimen>
+    <dimen name="seven">7dp</dimen>
     <dimen name="eight">8dp</dimen>
     <dimen name="ten">10dp</dimen>
     <dimen name="twelve">12dp</dimen>
     <dimen name="fourteen">14dp</dimen>
+    <dimen name="fifeteen">15dp</dimen>
     <dimen name="sixteen">16dp</dimen>
     <dimen name="eighteen">18dp</dimen>
     <dimen name="twenty">20dp</dimen>
@@ -39,6 +41,7 @@
     <dimen name="twenty_four">24dp</dimen>
     <dimen name="twenty_six">24dp</dimen>
     <dimen name="twenty_eight">28dp</dimen>
+    <dimen name="hundred">100dp</dimen>
 
     <!--Margin -->
     <dimen name="margin_two">@dimen/two</dimen>
@@ -76,6 +79,7 @@
     <dimen name="elevation_two">@dimen/two</dimen>
     <dimen name="elevation_four">@dimen/four</dimen>
     <dimen name="elevation_six">@dimen/six</dimen>
+    <dimen name="elevation_seven">@dimen/seven</dimen>
     <dimen name="elevation_eight">@dimen/eight</dimen>
     <dimen name="elevation_ten">@dimen/ten</dimen>
     <dimen name="elevation_twelve">@dimen/twelve</dimen>
@@ -107,5 +111,11 @@
 
     <!-- Drawer Menu -->
     <dimen name="drawer_menu_width">240dp</dimen>
+
+
+    <dimen name="dip_two">2dip</dimen>
+    <dimen name="dip_four">4dip</dimen>
+    <dimen name="dip_fourtyeight">48dip</dimen>
+    <dimen name="dip_hundred">100dip</dimen>
 
 </resources>
