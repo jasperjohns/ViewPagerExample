@@ -49,7 +49,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-
+import viewpagerexample.viewpagerexample.Constants;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -58,7 +58,7 @@ import java.util.Random;
 
 public class MainActivityFragment extends  BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>  {
 
-    private ArrayList<String> imageUrls;
+    private ArrayList<String> mImageUrls;
     private DisplayImageOptions options;
     private ImageAdapter imageAdapter;
     private Drawable mCustomImage;
@@ -104,7 +104,7 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
 
         Context context = getActivity().getBaseContext();
 
-        this.imageUrls = new ArrayList<String>();
+        this.mImageUrls = new ArrayList<String>();
 
         for (int i = 0; i < cursor.getCount(); i++) {
             cursor.moveToPosition(i);
@@ -112,7 +112,7 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
             String pathToImage =   cursor.getString(dataColumnIndex).toString();
             if (pathToImage.indexOf(FolderName) <=0 )
             {
-                imageUrls.add(cursor.getString(dataColumnIndex));
+                mImageUrls.add(cursor.getString(dataColumnIndex));
             }
         }
 
@@ -124,7 +124,7 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
                 .cacheOnDisc()
                 .build();
 
-        imageAdapter = new ImageAdapter(getActivity(), imageUrls);
+        imageAdapter = new ImageAdapter(getActivity(), mImageUrls);
 
         GridView gridView = (GridView) getActivity().findViewById(R.id.gridview);
         gridView.setAdapter(imageAdapter);
@@ -171,76 +171,13 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
             }
         });
 
-//        getLoaderManager().initLoader(LOADER_ID, null, this);
 
         mFabText = (TextView) v.findViewById(R.id.textFab);
-//            messageTextView.setText(message);
-
-
-        //v.setContentView(R.layout.ac_image_grid);
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity())
                 .build();
         ImageLoader.getInstance().init(config);
 
-
-
-
-        //Bundle bundle = getIntent().getExtras();
-        //imageUrls = bundle.getStringArray(Extra.IMAGES);
-
-        /*
-
-        final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
-        final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
-        Cursor imagecursor = getActivity().managedQuery(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
-                null, orderBy + " DESC");
-
-        this.imageUrls = new ArrayList<String>();
-
-        for (int i = 0; i < imagecursor.getCount(); i++) {
-            imagecursor.moveToPosition(i);
-            int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
-            String pathToImage =   imagecursor.getString(dataColumnIndex).toString();
-            if (pathToImage.indexOf(FolderName) <=0 )
-            {
-                imageUrls.add(imagecursor.getString(dataColumnIndex));
-
-
-            }
-        }
-
-
-        options = new DisplayImageOptions.Builder()
-                .showStubImage(R.drawable.stub_image)
-                .showImageForEmptyUri(R.drawable.image_for_empty_url)
-                .cacheInMemory()
-                .cacheOnDisc()
-                .build();
-
-        imageAdapter = new ImageAdapter(getActivity(), imageUrls);
-
-
-        GridView gridView = (GridView) v.findViewById(R.id.gridview);
-        gridView.setAdapter(imageAdapter);
-
-//        gridView.setOnItemClickListener(myOnItemClickListener);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String prompt = (String)parent.getItemAtPosition(position);
-                int itemsSelected = imageAdapter.getCheckedCount();
-                mFabText.setText(String.valueOf(itemsSelected));
-                Toast.makeText(getActivity(),
-                        prompt,
-                        Toast.LENGTH_LONG).show();
-//				startImageGalleryActivity(position);
-
-            }
-        });
-        */
 
         return v;
         }
@@ -249,18 +186,21 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
     public void ProcessImages(){
 
         ArrayList<String> selectedItems = imageAdapter.getCheckedItems();
-        Toast.makeText(getActivity(), "Total photos selected: "+selectedItems.size(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Total photos selected: " + selectedItems.size(), Toast.LENGTH_SHORT).show();
 
 
-//        Log.d(MultiPhotoSelectActivity.class.getSimpleName(), "Selected Items: " + selectedItems.toString());
     }
 
 
-/*    @Override
-    protected void onStop() {
-        imageLoader.stop();
-        super.onStop();
+    /*
+    // Save/Restore State
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putParcelableArray(Constants.IMAGE_URL_ARRAY, mImageUrls);
+
+
     }
+
 */
 
 
@@ -369,7 +309,7 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
 
         @Override
         public int getCount() {
-            return imageUrls.size();
+            return mImageUrls.size();
         }
 
         @Override
@@ -394,7 +334,7 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
             CheckBox mCheckBox = (CheckBox) convertView.findViewById(R.id.checkBox1);
             final ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView1);
 
-            imageLoader.displayImage("file://"+imageUrls.get(position), imageView, options, new SimpleImageLoadingListener() {
+            imageLoader.displayImage("file://"+ mImageUrls.get(position), imageView, options, new SimpleImageLoadingListener() {
 /*
                 @Override
                 public void onLoadingComplete(Bitmap loadedImage) {
@@ -433,7 +373,7 @@ public class MainActivityFragment extends  BaseFragment implements LoaderManager
 
                     int pos = Integer.valueOf(String.valueOf(arg0.getTag()));
 
-                    imageLoader.displayImage("file://" + imageUrls.get(pos), imgView, options, new SimpleImageLoadingListener() {
+                    imageLoader.displayImage("file://" + mImageUrls.get(pos), imgView, options, new SimpleImageLoadingListener() {
                     });
 /*
                     LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);

@@ -12,4 +12,7 @@ public class Constants {
     public final static String TOTAL_INSERTED_DATA = "TOTAL_INSERTED_DATA";
     public static final String ACTION_AUTO_UPDATE = "AUTO_UPDATE";
 
+    public static final String IMAGE_URL_ARRAY = "IMAGE_URL_ARRAY";
+
+
 }
