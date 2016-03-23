@@ -6,4 +6,10 @@ package viewpagerexample.viewpagerexample;
 public class Constants {
 
     public  static String FolderName ="/folder_name";
+
+    public final static String APPWIDGET_ID= "APPWIDGET_ID";
+    public final static String MY_ACTION = "MY_ACTION";
+    public final static String TOTAL_INSERTED_DATA = "TOTAL_INSERTED_DATA";
+    public static final String ACTION_AUTO_UPDATE = "AUTO_UPDATE";
+
 }

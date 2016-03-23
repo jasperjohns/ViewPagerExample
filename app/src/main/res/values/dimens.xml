@@ -59,6 +59,9 @@
     <dimen name="margin_twenty_six">@dimen/twenty_six</dimen>
     <dimen name="margin_wenty_eight">@dimen/twenty_eight</dimen>
 
+    <dimen name="widget_margin">8dp</dimen>
+
+
     <!-- Padding -->
     <dimen name="padding_two">@dimen/two</dimen>
     <dimen name="padding_four">@dimen/four</dimen>

@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -19,6 +20,9 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -34,10 +38,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -56,7 +56,7 @@ import java.util.Random;
  */
 
 
-public class MainActivityFragment extends BaseFragment {
+public class MainActivityFragment extends  BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>  {
 
     private ArrayList<String> imageUrls;
     private DisplayImageOptions options;
@@ -65,6 +65,7 @@ public class MainActivityFragment extends BaseFragment {
     private FloatingActionButton mFab;
     private TextView mFabText;
     private String FolderName =  Constants.FolderName;
+    private final static int LOADER_ID = 0;
 
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
@@ -75,6 +76,84 @@ public class MainActivityFragment extends BaseFragment {
         bdl.putString(EXTRA_MESSAGE, message);
         f.setArguments(bdl);
         return f;
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+    }
+
+
+    //LOADER METHODS
+    @Override
+    public Loader<Cursor> onCreateLoader(int loader, Bundle args) {
+        final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
+        final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
+
+        return new CursorLoader(getActivity(), MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
+                null, orderBy + " DESC");
+
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (!cursor.moveToFirst()) return;
+
+        Context context = getActivity().getBaseContext();
+
+        this.imageUrls = new ArrayList<String>();
+
+        for (int i = 0; i < cursor.getCount(); i++) {
+            cursor.moveToPosition(i);
+            int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
+            String pathToImage =   cursor.getString(dataColumnIndex).toString();
+            if (pathToImage.indexOf(FolderName) <=0 )
+            {
+                imageUrls.add(cursor.getString(dataColumnIndex));
+            }
+        }
+
+
+        options = new DisplayImageOptions.Builder()
+                .showStubImage(R.drawable.stub_image)
+                .showImageForEmptyUri(R.drawable.image_for_empty_url)
+                .cacheInMemory()
+                .cacheOnDisc()
+                .build();
+
+        imageAdapter = new ImageAdapter(getActivity(), imageUrls);
+
+        GridView gridView = (GridView) getActivity().findViewById(R.id.gridview);
+        gridView.setAdapter(imageAdapter);
+
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String prompt = (String)parent.getItemAtPosition(position);
+                int itemsSelected = imageAdapter.getCheckedCount();
+                mFabText.setText(String.valueOf(itemsSelected));
+                Toast.makeText(getActivity(),
+                        prompt,
+                        Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // This is called when the last Cursor provided to onLoadFinished()
+        // above is about to be closed.  We need to make sure we are no
+        // longer using it.
+        //mForecastAdapter.swapCursor(null);
+        //return null;
     }
 
 
@@ -92,6 +171,7 @@ public class MainActivityFragment extends BaseFragment {
             }
         });
 
+//        getLoaderManager().initLoader(LOADER_ID, null, this);
 
         mFabText = (TextView) v.findViewById(R.id.textFab);
 //            messageTextView.setText(message);
@@ -103,8 +183,13 @@ public class MainActivityFragment extends BaseFragment {
                 .build();
         ImageLoader.getInstance().init(config);
 
+
+
+
         //Bundle bundle = getIntent().getExtras();
         //imageUrls = bundle.getStringArray(Extra.IMAGES);
+
+        /*
 
         final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
         final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
@@ -155,8 +240,7 @@ public class MainActivityFragment extends BaseFragment {
 
             }
         });
-
-
+        */
 
         return v;
         }
@@ -178,6 +262,8 @@ public class MainActivityFragment extends BaseFragment {
         super.onStop();
     }
 */
+
+
 
     public class ImageAdapter extends BaseAdapter {
 
