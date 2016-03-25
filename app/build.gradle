@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'aap1key'
             keyPassword '@Eleeye4141'
-            storeFile file('C:/Temp/Android/ViewPagerExample/Keystore/android.jks')
+            storeFile file('../Keystore/android.jks')
             storePassword '@Eleeye4141'
         }
     }
