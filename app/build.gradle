@@ -4,9 +4,18 @@ android {
     signingConfigs {
         config {
             keyAlias 'aap1key'
-            keyPassword '@Eleeye4141'
+            keyPassword 'android2'
             storeFile file('../Keystore/android.jks')
-            storePassword '@Eleeye4141'
+            storePassword 'android2'
+        }
+
+        release {
+            keyAlias 'aap1key'
+            keyPassword 'android2'
+            storeFile file('../Keystore/android.jks')
+            storePassword 'android2'
+
+
         }
     }
     compileSdkVersion 23
@@ -22,6 +31,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     productFlavors {
